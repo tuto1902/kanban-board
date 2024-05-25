@@ -12,7 +12,7 @@
             display: hidden !important;
         }
     </style>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite('resources/css/app.css')
 </head>
 
 <body class="dark antialiased bg-gray-50 dark:bg-gray-950 text-gray-950 dark:text-white font-normal min-h-screen">

@@ -1,6 +1,8 @@
 ## Kanban Board
 
-Kanban Board livestream project
+Kanban Board livestream project.
+
+The main branch contains the base project. If you want to see the chages made on each livestream, make sure to check the specific branch for each week.
 
 ## Installation
 ```

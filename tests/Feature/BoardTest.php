@@ -24,9 +24,6 @@ it('shows all groups', function () {
 });
 
 it('it shows all tasks from a group', function () {
-    /**
-     * type App\Models\Group
-     */
     $group = Group::factory()->create();
     Task::factory(3)
         ->state(new Sequence(

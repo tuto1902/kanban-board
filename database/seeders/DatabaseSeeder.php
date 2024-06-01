@@ -24,11 +24,13 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $group = Group::factory()->state(['name' => 'To-Do'])->create();
-        Task::factory(3)
+        Task::factory(5)
             ->state(new Sequence(
                 ['sort' => 0, 'description' => 'Task 1'],
                 ['sort' => 1, 'description' => 'Task 2'],
-                ['sort' => 2, 'description' => 'Task 3']
+                ['sort' => 2, 'description' => 'Task 3'],
+                ['sort' => 3, 'description' => 'Task 4'],
+                ['sort' => 4, 'description' => 'Task 5'],
             ))
             ->for($group)
             ->create();

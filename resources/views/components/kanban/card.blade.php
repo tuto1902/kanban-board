@@ -1,4 +1,4 @@
-<a {{ $attributes->get('href') }} class="block p-5 bg-white dark:bg-white/5 ring-1 ring-gray-950/10 dark:ring-white/20 rounded-md shadow">
+<a {{ $attributes->get('href') }} {{ $attributes->whereStartsWith('wire:') }} {{ $attributes->whereStartsWith('x-sort') }} class="block p-5 bg-white dark:bg-white/5 ring-1 ring-gray-950/10 dark:ring-white/20 rounded-md shadow">
     <div class="flex items-start justify-between gap-2">
         <div class="flex-1 text-sm font-medium leading-snug">{{ $slot }}</div>
     </div>

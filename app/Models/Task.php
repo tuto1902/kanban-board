@@ -11,6 +11,10 @@ class Task extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'sort',
+    ];
+
     public function group(): BelongsTo
     {
         return $this->belongsTo(Group::class);

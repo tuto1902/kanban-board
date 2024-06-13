@@ -13,7 +13,18 @@ class Task extends Model
 
     protected $fillable = [
         'sort',
+        'description',
     ];
+
+    protected static function booted()
+    {
+        static::creating(function (Task $task) {
+            if ($task->sort === null) {
+                $lastSortPosition = $task->group->tasks()->max('sort');
+                $task->sort = $lastSortPosition == null ? 0 : $lastSortPosition + 1;
+            }
+        });
+    }
 
     public function group(): BelongsTo
     {

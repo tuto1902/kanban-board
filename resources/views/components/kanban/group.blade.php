@@ -10,7 +10,7 @@
     <div class="p-3">
         <template x-if="showAddTaskForm == true">
             <form wire:submit="createTask({{ $group->getKey() }})">
-                <x-text-input wire:model="description" placeholder="Task description" />
+                <x-text-input wire:model="description" placeholder="Task description" x-ref="input" />
                 @error('description')
                 <span class="text-rose-500 dark:text-rose-400 text-sm pt-1">
                     {{ $message }}
@@ -26,7 +26,7 @@
                 </div>
             </form>
         </template>
-        <button x-show="showAddTaskForm == false" @click="showAddTaskForm = true" class="flex items-center justify-start gap-1 w-full" type="button">
+        <button x-show="showAddTaskForm == false" @click="showAddTaskForm = true; $nextTick(() => { $refs.input.focus(); });" class="flex items-center justify-start gap-1 w-full" type="button">
            <x-heroicon-o-plus class="size-5" /> 
            <span class="text-sm font-medium">Add Card</span>
         </button>

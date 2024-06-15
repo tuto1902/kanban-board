@@ -15,7 +15,7 @@
             class="relative max-w-xl w-full ring-1 ring-gray-950/5 dark:ring-white/10 bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-y-auto"
         >
             <!-- Close Button -->
-            <div class="absolute top-0 right-0 pt-4 pr-4">
+            <div class="absolute top-0 right-0">
                 <button type="button" x-on:click="$dialog.close()" class="rounded-lg p-2 text-gray-600 focus:outline-none focus-visible:ring-none">
                     <span class="sr-only">Close modal</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
@@ -25,7 +25,7 @@
             </div>
 
             <!-- Panel -->
-            <div class="p-8">
+            <div class="p-4">
                 {{ $slot }}
             </div>
         </div>

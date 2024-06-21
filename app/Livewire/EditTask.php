@@ -32,8 +32,9 @@ class EditTask extends Component
 
     public function resetDialogForm($isOpen)
     {
-        if ($isOpen) {
+        if ($isOpen == false) {
             $this->form->setTask($this->task);
+            $this->form->resetErrorBag();
         }
     }
 }

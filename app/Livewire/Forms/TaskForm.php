@@ -10,7 +10,7 @@ class TaskForm extends Form
 {
     public ?Task $task;
 
-    #[Validate('required')]
+    #[Validate('required', onUpdate: false)]
     public $description;
 
     public function setTask(Task $task)

@@ -1,7 +1,12 @@
 @props(['group'])
 
-<div x-data="{ showAddTaskForm: false }" x-on:task-created.window="showAddTaskForm = false" {{ $attributes->whereStartsWith('wire:') }} class="flex flex-col flex-shrink-0 self-start max-h-full w-80 ring-1 bg-gray-100 dark:bg-gray-900 ring-gray-950/10 dark:ring-white/10 rounded-md">
-    <h3 class="flex-shrink-0 p-3 text-sm font-medium">{{ $group->name }}</h3>
+<div
+    x-data="{ showAddTaskForm: false }"
+    x-on:keyup.escape="showAddTaskForm = false"
+    {{ $attributes->whereStartsWith('wire:') }}
+    class="flex flex-col flex-shrink-0 self-start max-h-full w-80 ring-1 bg-gray-100 dark:bg-gray-900 ring-gray-950/10 dark:ring-white/10 rounded-md"
+>
+    <livewire:edit-group wire:key="edit-group-{{ $group->getKey() }}" :group="$group" />
     <div class="flex-1 min-h-0 overflow-y-auto" style="scrollbar-width: thin;">
         <div {{ $attributes->whereStartsWith('x-sort') }} class="pt-1 pb-3 flex flex-col gap-3 px-3">
             {{ $slot }}
@@ -10,7 +15,12 @@
     <div class="p-3">
         <template x-if="showAddTaskForm == true">
             <form wire:submit="createTask({{ $group->getKey() }})">
-                <x-text-input wire:model="description" placeholder="Task description" x-ref="input" />
+                <x-text-input
+                    wire:model="description"
+                    placeholder="Task description"
+                    x-ref="input"
+                    @class(['ring-1 ring-rose-500 dark:ring-rose-400 focus-within:ring-rose-500 dark:focus-within:ring-rose-400' => $errors->has('description')])
+                />
                 @error('description')
                 <span class="text-rose-500 dark:text-rose-400 text-sm pt-1">
                     {{ $message }}

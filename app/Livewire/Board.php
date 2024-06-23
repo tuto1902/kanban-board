@@ -7,6 +7,7 @@ use App\Models\Task;
 use App\View\Components\KanbanLayout;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 
@@ -68,5 +69,10 @@ class Board extends Component
         ]);
 
         $this->dispatch('task-created');
+    }
+
+    public function refreshGroups()
+    {
+        $this->groups = Group::all();
     }
 }

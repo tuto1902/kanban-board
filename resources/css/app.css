@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.dark * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(255 255 255 / 0.2) rgb(255 255 255 / 0.05);
+}

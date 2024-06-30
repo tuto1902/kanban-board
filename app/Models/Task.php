@@ -21,7 +21,7 @@ class Task extends Model
         static::creating(function (Task $task) {
             if ($task->sort === null) {
                 $lastSortPosition = $task->group->tasks()->max('sort');
-                $task->sort = $lastSortPosition == null ? 0 : $lastSortPosition + 1;
+                $task->sort = $lastSortPosition === null ? 0 : $lastSortPosition + 1;
             }
         });
     }

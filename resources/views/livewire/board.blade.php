@@ -13,11 +13,7 @@
     <x-kanban.header />
     <x-kanban.board>
         @foreach($groups as $group)
-        <x-kanban.group wire:key="group-{{ $group->getKey() }}" x-sort="$wire.sort($item, $position)" :group="$group">
-            @foreach($group->tasks()->inOrder()->get() as $task)
-            <livewire:kanban.card :task="$task" wire:key="task-{{ $task->getKey() }}" />
-            @endforeach
-        </x-kanban.group>
+        <livewire:kanban.group wire:key="group-{{ $group->getKey() }}" :group="$group" />
         @endforeach
         <livewire:add-group @group-created="refreshGroups" />
     </x-kanban.board>

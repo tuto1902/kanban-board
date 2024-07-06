@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 trait Sortable
 {
-    protected static function bootSorted()
+    protected static function bootSortable()
     {
         static::creating(function (Model $record) {
             if ($record->sort === null) {

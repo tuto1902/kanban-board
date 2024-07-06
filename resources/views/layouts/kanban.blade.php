@@ -20,9 +20,9 @@
         {{ $sidebar }}
 
         {{ $slot }}
-        @livewireScriptConfig
-        @vite(['resources/js/app.js'])
     </div>
+    @livewireScriptConfig
+    @vite(['resources/js/app.js'])
 </body>
 
 </html>

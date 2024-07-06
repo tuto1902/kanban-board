@@ -8,7 +8,7 @@
                 wire:model="description"
                 placeholder="Task description"
                 x-ref="input"
-                @class(['ring-1 ring-rose-500 dark:ring-rose-400 focus-within:ring-rose-500 dark:focus-within:ring-rose-400' => $errors->has('description')])
+                @class(['ring-gray-950/10 dark:ring-white/20' => $errors->isEmpty(), 'ring-1 ring-rose-500 dark:ring-rose-400 focus-within:ring-rose-500 dark:focus-within:ring-rose-400' => $errors->has('description')])
             />
             @error('description')
             <span class="text-rose-500 dark:text-rose-400 text-sm pt-1">

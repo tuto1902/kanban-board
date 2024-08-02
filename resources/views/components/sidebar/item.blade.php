@@ -10,12 +10,12 @@ $badge = $badge ?? false;
     'bg-gray-100 dark:bg-white/5' => $active
 ])>
     <span @class([
-        'flex-1 truncate text-sm font-medium',    
-        'text-amber-600 dark:text-amber-400' => $active
+        'flex-1 truncate text-sm font-medium',
+        'text-indigo-500 dark:text-indigo-500' => $active
     ])>{{ $slot }}</span>
     @if($badge)
-    <span class="flex items-center justify-center gap-x-1 rounded-md text-xs font-medium ring-1 ring-inset px-2 min-w-6 py-1 bg-amber-50 text-amber-600 ring-amber-600/10 dark:bg-amber-400/10 dark:text-amber-400 dark:ring-amber-400/30">
-        {{ $badge }}        
+    <span class="flex items-center justify-center gap-x-1 rounded-md text-xs font-bold ring-1 ring-inset px-2 min-w-6 py-1 bg-indigo-50 text-indigo-600 ring-indigo-600/10 dark:bg-indigo-500/25 dark:text-indigo-500 dark:ring-indigo-500">
+        {{ $badge }}
     </span>
     @endif
 </a>

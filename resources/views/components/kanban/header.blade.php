@@ -9,7 +9,7 @@
                     <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
                         <x-heroicon-o-magnifying-glass class="w-5 h-5 text-gray-400" />
                     </span>
-                    <div class="flex rounded-lg shadow-sm ring-1 transition duration-75 bg-white dark:bg-white/5 ring-gray-950/10 dark:ring-white/20 focus-within:ring-2 focus-within:ring-amber-600 dark:focus-within:ring-amber-500 overflow-hidden">
+                    <div class="flex rounded-lg shadow-sm ring-1 transition duration-75 bg-white dark:bg-white/5 ring-gray-950/10 dark:ring-white/20 focus-within:ring-2 focus-within:ring-indigo-500 dark:focus-within:ring-indigo-500 overflow-hidden">
                         <input class="bg-white/0 block w-full rounded-md border-none text-base sm:text-sm py-2 pl-10 pr-4 sm:leading-6 text-gray-950 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus-visible:outline-none focus:ring-0" type="text" placeholder="Search">
                     </div>
                 </div>

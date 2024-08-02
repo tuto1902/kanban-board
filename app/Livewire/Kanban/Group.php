@@ -14,6 +14,7 @@ class Group extends Component
 
     public function mount(GroupModel $group)
     {
+        $this->authorize('view', $group);
         $this->group = $group;
     }
 

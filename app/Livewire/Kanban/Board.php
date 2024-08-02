@@ -20,7 +20,7 @@ class Board extends Component
     #[Computed]
     public function groups()
     {
-       return Group::inOrder()->get();
+       return auth()->user()->groups()->inOrder()->get();
     }
 
     #[Layout(KanbanLayout::class)]

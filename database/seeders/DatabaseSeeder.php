@@ -18,13 +18,13 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $user = User::factory()->create([
+            'name' => 'Admin User',
+            'email' => 'admin@example.com',
         ]);
 
-        $group1 = Group::factory()->state(['name' => 'To-Do'])->create();
-        $group2 = Group::factory()->state(['name' => 'In Progress'])->create();
+        $group1 = Group::factory()->state(['name' => 'To-Do'])->for($user)->create();
+        $group2 = Group::factory()->state(['name' => 'In Progress'])->for($user)->create();
         Task::factory(4)
             ->state(new Sequence(
                 ['sort' => 0, 'description' => 'Task 1'],

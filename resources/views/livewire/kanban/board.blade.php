@@ -10,12 +10,16 @@
         >
             <template x-if="showAddGroupForm == true">
                 <form wire:submit="store" class="p-2">
-                    <x-text-input wire:model="name" placeholder="List Name" x-ref="input" @class(['ring-1 ring-rose-500 dark:ring-rose-400 focus-within:ring-rose-500 dark:focus-within:ring-rose-400' => $errors->has('name')]) />
-                    @error('name')
-                    <span class="text-rose-500 dark:text-rose-400 text-sm pt-1">
-                        {{ $message }}
-                    </span>
-                    @enderror
+
+                    <div class="flex flex-col gap-2">
+
+                        <x-text-input wire:model="form.name" placeholder="List Name" x-ref="input" @class(['ring-1 ring-rose-500 dark:ring-rose-400 focus-within:ring-rose-500 dark:focus-within:ring-rose-400' => $errors->has('form.name')]) />
+                        @error('form.name')
+                        <span class="text-rose-500 dark:text-rose-400 text-sm pt-1">
+                            {{ $message }}
+                        </span>
+                        @enderror
+                    </div>
                     <div class="flex items-center justify-start gap-2 pt-2">
                         <x-primary-button>
                             Save

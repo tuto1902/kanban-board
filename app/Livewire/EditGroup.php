@@ -2,20 +2,20 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Forms\GroupForm;
 use App\Models\Group;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class EditGroup extends Component
 {
-    #[Validate('required')]
-    public string $name;
+    public GroupForm $form;
 
     public Group $group;
 
     public function mount()
     {
-        $this->name = $this->group->name;
+        $this->form->setGroup($this->group);
     }
 
     public function render()
@@ -25,11 +25,7 @@ class EditGroup extends Component
 
     public function update()
     {
-        $this->validate();
-
-        $this->group->update([
-            'name' => $this->name
-        ]);
+        $this->form->update();
 
         $this->dispatch('group-updated');
     }
@@ -37,7 +33,7 @@ class EditGroup extends Component
     public function resetForm(bool $isEditing)
     {
         if ($isEditing == false) {
-            $this->name = $this->group->name;
+            $this->form->name = $this->group->name;
         }
     }
 }

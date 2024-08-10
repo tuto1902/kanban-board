@@ -12,7 +12,7 @@ trait Sortable
     {
         static::creating(function (Model $record) {
             if ($record->sort === null) {
-                $lastSortPosition = $record->getSortableQuery()?->max('sort');
+                $lastSortPosition = $record->getSortableQuery()->max('sort');
                 $record->sort = $lastSortPosition === null ? 0 : $lastSortPosition + 1;
             }
         });

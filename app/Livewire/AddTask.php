@@ -2,15 +2,13 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Forms\TaskForm;
 use App\Models\Group;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class AddTask extends Component
 {
-    #[Validate('required')]
-    public $description;
-
+    public TaskForm $form;
     public Group $group;
 
     public function render()
@@ -20,11 +18,7 @@ class AddTask extends Component
 
     public function store()
     {
-        $this->validate();
-
-        $this->group->tasks()->create([
-            'description' => $this->pull('description'),
-        ]);
+        $this->form->store($this->group);
 
         $this->dispatch('task-created');
     }

@@ -6,12 +6,12 @@
         <form wire:submit="store">
             <div class="flex flex-col gap-2">
                 <x-text-input
-                    wire:model="description"
+                    wire:model="form.description"
                     placeholder="Task description"
                     x-ref="input"
-                    @class(['ring-gray-950/10 dark:ring-white/20' => $errors->isEmpty(), 'ring-1 ring-rose-500 dark:ring-rose-400 focus-within:ring-rose-500 dark:focus-within:ring-rose-400' => $errors->has('description')])
+                    @class(['ring-gray-950/10 dark:ring-white/20' => $errors->isEmpty(), 'ring-1 ring-rose-500 dark:ring-rose-400 focus-within:ring-rose-500 dark:focus-within:ring-rose-400' => $errors->has('form.description')])
                 />
-                @error('description')
+                @error('form.description')
                 <span class="text-rose-500 dark:text-rose-400 text-sm pt-1">
                     {{ $message }}
                 </span>

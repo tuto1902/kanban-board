@@ -21,7 +21,7 @@ class Group extends Model
 
     public function getSortableQuery()
     {
-        return Auth::user()?->groups();
+        return $this->user->groups();
     }
 
     public function tasks(): HasMany

@@ -2,18 +2,10 @@
 
 use App\Models\Group;
 use App\Models\Task;
+use App\Models\Project;
 use App\Livewire\Kanban\Group as GroupComponent;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Sequence;
-use Illuminate\Support\Facades\Auth;
-
-use function Pest\Laravel\actingAs;
-
-// beforeEach(function () {
-//     $user = User::factory()
-//         ->create();
-//     actingAs($user);
-// });
 
 it('it shows all tasks from a group', function () {
     $user = User::factory()
@@ -43,8 +35,6 @@ it('only shows tasks from the logged in user', function (){
     $stranger = User::factory()
         ->create();
 
-    actingAs($stranger);
-
     $group = Group::factory()->for($user)->create();
     Task::factory(3)
         ->state(new Sequence(
@@ -63,7 +53,9 @@ it('only shows tasks from the logged in user', function (){
 });
 
 it('shows tasks in order', function () {
-    $group = Group::factory()->create();
+    $user = User::factory()
+        ->create();
+    $group = Group::factory()->for($user)->create();
     Task::factory(3)
         ->state(new Sequence(
             ['sort' => 1, 'description' => 'Task 2'],
@@ -73,7 +65,7 @@ it('shows tasks in order', function () {
         ->for($group)
         ->create();
 
-    Livewire::test(GroupComponent::class, ['group' => $group])
+    Livewire::actingAs($user)->test(GroupComponent::class, ['group' => $group])
         ->assertSeeTextInOrder([
             'Task 1',
             'Task 2',
@@ -82,7 +74,9 @@ it('shows tasks in order', function () {
 });
 
 it('can move task to target position', function () {
-    $group = Group::factory()->create();
+    $user = User::factory()
+        ->create();
+    $group = Group::factory()->for($user)->create();
     Task::factory(3)
         ->state(new Sequence(
             ['sort' => 0],
@@ -92,7 +86,7 @@ it('can move task to target position', function () {
         ->for($group)
         ->create();
 
-    Livewire::test(GroupComponent::class, ['group' => $group])
+    Livewire::st(GroupCompo->nent::class, ['group' => $group])
         ->call('sort', 1, 2);
 
     expect($group->tasks)
@@ -139,4 +133,31 @@ it('sort tasks after dragging up', function () {
     expect($group->tasks)
        ->find(1)->sort->toBe(1)
        ->find(2)->sort->toBe(2);
+});
+
+it('filters tasks by project', function (){
+    $user = User::factory()
+        ->create();
+
+    $group = Group::factory()->for($user)->create();
+
+    $project = Project::factory()->create();
+
+    Task::factory(3)
+        ->state(new Sequence(
+            ['description' => 'Task 1'],
+            ['description' => 'Task 2'],
+        ))
+        ->for($group)
+        ->for($project)
+        ->create();
+
+    Task::factory()->state(['description' => 'Task 3'])->for($group)->create();
+
+    Livewire::actingAs($user)->test(GroupComponent::class, ['group' => $group, 'project' => $project])
+        ->assertSeeText([
+            'Task 1',
+            'Task 2',
+        ])
+        ->assertDontSeeText('Task 3');
 });

@@ -4,6 +4,7 @@ namespace App\Livewire\Kanban;
 
 use Livewire\Component;
 use App\Models\Group as GroupModel;
+use App\Models\Project;
 use App\Models\Task;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
@@ -11,11 +12,13 @@ use Livewire\Attributes\Computed;
 class Group extends Component
 {
     public GroupModel $group;
+    public ?Project $project;
 
-    public function mount(GroupModel $group)
+    public function mount(GroupModel $group, ?Project $project)
     {
         $this->authorize('view', $group);
         $this->group = $group;
+        $this->project = $project;
     }
 
     public function render()
@@ -26,7 +29,11 @@ class Group extends Component
     #[Computed]
     public function tasks()
     {
-       return $this->group->tasks()->inOrder()->get();
+        $tasksQuery = $this->group->tasks()->inOrder();
+        if($this->project) {
+            $tasksQuery = $tasksQuery->forProject($this->project->getKey());
+        }
+        return $tasksQuery->get();
     }
 
     public function sort($taskId, $targetSortPosition, $targetGroupId)

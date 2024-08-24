@@ -86,15 +86,16 @@ it('can move task to target position', function () {
         ->for($group)
         ->create();
 
-    Livewire::st(GroupCompo->nent::class, ['group' => $group])
-        ->call('sort', 1, 2);
+    Livewire::actingAs($user)->test(GroupComponent::class, ['group' => $group])
+        ->call('sort', 1, 2, $group->getKey());
 
     expect($group->tasks)
        ->find(1)->sort->toBe(2);
 });
 
 it('sort tasks after dragging down', function () {
-    $group = Group::factory()->create();
+    $user = User::factory()->create();
+    $group = Group::factory()->for($user)->create();
     Task::factory(3)
         ->state(new Sequence(
             ['sort' => 0],
@@ -104,8 +105,8 @@ it('sort tasks after dragging down', function () {
         ->for($group)
         ->create();
 
-    Livewire::test(GroupComponent::class, ['group' => $group])
-        ->call('sort', 1, 2);
+    Livewire::actingAs($user)->test(GroupComponent::class, ['group' => $group])
+        ->call('sort', 1, 2, $group->getKey());
 
     $group->refresh();
 
@@ -115,7 +116,8 @@ it('sort tasks after dragging down', function () {
 });
 
 it('sort tasks after dragging up', function () {
-    $group = Group::factory()->create();
+    $user = User::factory()->create();
+    $group = Group::factory()->for($user)->create();
     Task::factory(3)
         ->state(new Sequence(
             ['sort' => 0],
@@ -125,8 +127,8 @@ it('sort tasks after dragging up', function () {
         ->for($group)
         ->create();
 
-    Livewire::test(GroupComponent::class, ['group' => $group])
-        ->call('sort', 3, 0);
+    Livewire::actingAs($user)->test(GroupComponent::class, ['group' => $group])
+        ->call('sort', 3, 0, $group->getKey());
 
     $group->refresh();
 
@@ -141,7 +143,7 @@ it('filters tasks by project', function (){
 
     $group = Group::factory()->for($user)->create();
 
-    $project = Project::factory()->create();
+    $project = Project::factory()->for($user)->create();
 
     Task::factory(3)
         ->state(new Sequence(

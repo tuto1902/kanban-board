@@ -3,16 +3,18 @@
 use App\Models\Group;
 use App\Models\Task;
 use App\Livewire\AddTask;
+use App\Models\User;
 
 use function Pest\Laravel\assertDatabaseHas;
 
 it('can create tasks', function () {
-    $group = Group::factory()->create();
+    $user = User::factory()->create();
+    $group = Group::factory()->for($user)->create();
     $newTask = Task::factory()
         ->make();
 
-    Livewire::test(AddTask::class, ['group' => $group])
-        ->set('description', $newTask->description)
+    Livewire::actingAs($user)->test(AddTask::class, ['group' => $group])
+        ->set('form.description', $newTask->description)
         ->call('store');
 
     assertDatabaseHas('tasks', [
@@ -21,7 +23,8 @@ it('can create tasks', function () {
 });
 
 it('properly sorts new tasks', function () {
-    $group = Group::factory()->create();
+    $user = User::factory()->create();
+    $group = Group::factory()->for($user)->create();
     Task::factory()
         ->state(['sort' => 0])
         ->for($group)
@@ -30,8 +33,8 @@ it('properly sorts new tasks', function () {
     $newTask = Task::factory()
         ->make();
 
-    Livewire::test(AddTask::class, ['group' => $group])
-        ->set('description', $newTask->description)
+    Livewire::actingAs($user)->test(AddTask::class, ['group' => $group])
+        ->set('form.description', $newTask->description)
         ->call('store');
 
     assertDatabaseHas('tasks', [

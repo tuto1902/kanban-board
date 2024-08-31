@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Group;
+use App\Models\Project;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Sequence;
@@ -23,6 +24,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@example.com',
         ]);
 
+        $project = Project::factory()->for($user)->state(['name' => 'Project A'])->create();
+
         $group1 = Group::factory()->state(['name' => 'To-Do'])->for($user)->create();
         $group2 = Group::factory()->state(['name' => 'In Progress'])->for($user)->create();
         Task::factory(4)
@@ -33,6 +36,7 @@ class DatabaseSeeder extends Seeder
                 ['sort' => 3, 'description' => 'Task 4'],
             ))
             ->for($group1)
+            ->for($project)
             ->create();
         Task::factory(3)
             ->state(new Sequence(
@@ -41,6 +45,7 @@ class DatabaseSeeder extends Seeder
                 ['sort' => 2, 'description' => 'Three'],
             ))
             ->for($group2)
+            ->for($project)
             ->create();
     }
 }

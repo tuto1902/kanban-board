@@ -14,9 +14,9 @@
     >
         <x-sidebar.brand />
         <x-sidebar.group label="Projects">
-            <x-sidebar.item href="#" badge="10" active="true">All Projects</x-sidebar.item>
+            <x-sidebar.item href="#" wire:click.prevent="setProjectId" :badge="$this->taskCount()" active="true">All Tasks</x-sidebar.item>
             @foreach($projects as $project)
-            <x-sidebar.item wire:key="$project->getKey()" href="#" :active="false">{{ $project->name }}</x-sidebar.item>
+            <x-sidebar.item wire:key="$project->getKey()" wire:click.prevent="setProjectId({{ $project->getKey() }})" href="#" :badge="$project->tasks_count" :active="false">{{ $project->name }}</x-sidebar.item>
             @endforeach
         </x-sidebar.group>
     </div>

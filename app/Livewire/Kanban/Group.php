@@ -8,17 +8,21 @@ use App\Models\Project;
 use App\Models\Task;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
+use Livewire\Attributes\Url;
 
 class Group extends Component
 {
     public GroupModel $group;
-    public ?Project $project;
+    public Project $project;
 
-    public function mount(GroupModel $group, ?Project $project)
+    #[Url]
+    public ?int $projectId = null;
+
+    public function mount(GroupModel $group)
     {
         $this->authorize('view', $group);
         $this->group = $group;
-        $this->project = $project;
     }
 
     public function render()
@@ -29,8 +33,9 @@ class Group extends Component
     #[Computed]
     public function tasks()
     {
+        $this->project = $this->projectId ? Project::find($this->projectId) : new Project();
         $tasksQuery = $this->group->tasks()->inOrder();
-        if($this->project) {
+        if($this->project->getKey()) {
             $tasksQuery = $tasksQuery->forProject($this->project->getKey());
         }
         return $tasksQuery->get();
@@ -48,4 +53,9 @@ class Group extends Component
         $task->moveToPosition($targetSortPosition);
     }
 
+    #[On('project-filter')]
+    public function onProjectFilter($projectId = null)
+    {
+       $this->projectId = $projectId;
+    }
 }

@@ -5,8 +5,8 @@ $active = $active ?? false;
 $badge = $badge ?? false;
 
 @endphp
-<a {{ $attributes->get('href') }} @class([
-    'flex justify-between items-center px-3 py-2 outline-none transition duration-75 hover:bg-gray-100 focus-visible:bg-gray-100 dark:hover:bg-white/5 dark:focus-visible:bg-white/5 rounded-lg',
+<a {{ $attributes }} @class([
+    'flex cursor-pointer justify-between items-center px-3 py-2 outline-none transition duration-75 hover:bg-gray-100 focus-visible:bg-gray-100 dark:hover:bg-white/5 dark:focus-visible:bg-white/5 rounded-lg',
     'bg-gray-100 dark:bg-white/5' => $active
 ])>
     <span @class([

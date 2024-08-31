@@ -1,13 +1,6 @@
 <x-kanban-layout>
     <x-slot:sidebar>
-        <x-sidebar>
-            <x-sidebar.brand />
-            <x-sidebar.group label="Tags">
-                <x-sidebar.item href="#" badge="10" active="true">All Tags</x-sidebar.item>
-                <x-sidebar.item href="#" :active="false">Bug</x-sidebar.item>
-                <x-sidebar.item href="#" :active="false">Enhancement</x-sidebar.item>
-            </x-sidebar.group>
-        </x-sidebar>
+        <livewire:sidebar />
     </x-slot:sidebar>
 
 

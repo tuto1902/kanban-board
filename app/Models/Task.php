@@ -13,6 +13,7 @@ class Task extends Model
     use HasFactory, Sortable;
 
     protected $fillable = [
+        'project_id',
         'sort',
         'description',
     ];
@@ -25,6 +26,11 @@ class Task extends Model
     public function scopeForProject(Builder $query, $projectId)
     {
         $query->where('project_id', $projectId);
+    }
+
+    public function scopeFilter(Builder $query, string $search)
+    {
+        //
     }
 
     public function group(): BelongsTo

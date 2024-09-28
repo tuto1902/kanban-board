@@ -9,11 +9,15 @@ use Livewire\Form;
 
 class ProjectForm extends Form
 {
+    #[Validate('required', onUpdate: false)]
     public $name;
+
     public ?Project $project;
 
     public function store()
     {
+        $this->validate();
+
         Auth::user()->projects()->create([
             'name' => $this->name
         ]);
@@ -27,6 +31,8 @@ class ProjectForm extends Form
 
     public function update()
     {
+        $this->validate();
+
         $this->project->update([
             'name' => $this->name
         ]);

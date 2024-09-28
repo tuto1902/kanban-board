@@ -4,17 +4,13 @@ namespace App\Livewire;
 
 use App\Livewire\Forms\ProjectForm;
 use App\Models\Project;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class EditProject extends Component
 {
     public ProjectForm $form;
-    public Project $project;
-
-    public function mount()
-    {
-        $this->form->setProject($this->project);
-    }
+    public bool $showDialog = false;
 
     public function render()
     {
@@ -24,10 +20,29 @@ class EditProject extends Component
     public function update()
     {
         $this->form->update();
+        $this->showDialog = false;
+        $this->dispatch('project-updated');
     }
 
-    public function delete()
+    public function destroy()
     {
         $this->form->delete();
+        $this->showDialog = false;
+        $this->dispatch('project-deleted');
+    }
+
+    #[On('edit-project')]
+    public function setTask(Project $project)
+    {
+        $this->form->setProject($project);
+        $this->showDialog = true;
+    }
+
+    public function resetDialogForm($isOpen)
+    {
+        if ($isOpen == false) {
+            $this->form->reset();
+            $this->form->resetErrorBag();
+        }
     }
 }

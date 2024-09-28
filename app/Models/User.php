@@ -53,6 +53,6 @@ class User extends Authenticatable
 
     public function projects(): HasMany
     {
-        return $this->hasMany(Project::class)->withCount('tasks');
+        return $this->hasMany(Project::class);
     }
 }

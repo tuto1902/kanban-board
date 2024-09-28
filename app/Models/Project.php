@@ -15,6 +15,13 @@ class Project extends Model
         'name'
     ];
 
+    protected static function booted(): void
+    {
+        static::deleted(function (Project $project) {
+            Task::where('project_id', $project->getKey())->update(['project_id' => null]);
+        });
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

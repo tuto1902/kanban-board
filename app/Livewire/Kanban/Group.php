@@ -6,7 +6,10 @@ use Livewire\Component;
 use App\Models\Group as GroupModel;
 use App\Models\Project;
 use App\Models\Task;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Js;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
@@ -14,7 +17,9 @@ use Livewire\Attributes\Url;
 class Group extends Component
 {
     public GroupModel $group;
-    public Project $project;
+
+    #[Url]
+    public ?string $search = '';
 
     #[Url]
     public ?int $projectId = null;
@@ -53,9 +58,15 @@ class Group extends Component
         $task->moveToPosition($targetSortPosition);
     }
 
-    #[On('project-filter')]
+    #[On([ 'project-filter', 'project-deleted' ])]
     public function onProjectFilter($projectId = null)
     {
        $this->projectId = $projectId;
+    }
+
+    #[On('tasks-filter')]
+    public function onTasksFilter($search = null)
+    {
+        $this->search = $search;
     }
 }

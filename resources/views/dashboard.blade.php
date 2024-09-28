@@ -8,5 +8,7 @@
         <livewire:kanban.header />
         <livewire:kanban.board />
         <livewire:edit-task />
+        <livewire:add-project />
+        <livewire:edit-project />
     </div>
 </x-kanban-layout>

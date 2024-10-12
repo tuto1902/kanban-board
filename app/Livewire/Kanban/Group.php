@@ -38,12 +38,11 @@ class Group extends Component
     #[Computed]
     public function tasks()
     {
-        $this->project = $this->projectId ? Project::find($this->projectId) : new Project();
-        $tasksQuery = $this->group->tasks()->inOrder();
-        if($this->project->getKey()) {
-            $tasksQuery = $tasksQuery->forProject($this->project->getKey());
-        }
-        return $tasksQuery->get();
+        return $this->group->tasks()
+            ->when($this->projectId, fn (Builder $query, $projectId) => $query->forProject($projectId))
+            ->when($this->search, fn (Builder $query, $search) => $query->filter($search))
+            ->inOrder()
+            ->get();
     }
 
     public function sort($taskId, $targetSortPosition, $targetGroupId)

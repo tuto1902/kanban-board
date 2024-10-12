@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Livewire\Forms\TaskForm;
+use App\Models\Label;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -17,9 +18,12 @@ class EditTask extends Component
 
     public $projects;
 
+    public $labels;
+
     public function mount()
     {
         $this->projects = Auth::user()->projects;
+        $this->labels = Label::all();
     }
 
     public function render()

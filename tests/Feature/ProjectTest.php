@@ -42,7 +42,8 @@ it('can delete projects', function () {
     $project = Project::factory()->for($user)->create();
 
     Livewire::actingAs($user)->test(EditProject::class, ['project' => $project])
-        ->call('delete');
+        ->call('setProject', $project)
+        ->call('destroy');
 
     assertDatabaseMissing('projects', [
         'name' => $project->name

@@ -4,6 +4,7 @@ use App\Models\Group;
 use App\Models\Task;
 use App\Models\Project;
 use App\Livewire\Kanban\Group as GroupComponent;
+use App\Livewire\Sidebar;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 
@@ -156,7 +157,8 @@ it('filters tasks by project', function (){
 
     Task::factory()->state(['description' => 'Task 3'])->for($group)->create();
 
-    Livewire::actingAs($user)->test(GroupComponent::class, ['group' => $group, 'project' => $project])
+    Livewire::actingAs($user)->test(GroupComponent::class, ['group' => $group])
+        ->dispatch('project-filter', $project->id)
         ->assertSeeText([
             'Task 1',
             'Task 2',

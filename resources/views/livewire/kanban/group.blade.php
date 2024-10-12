@@ -14,8 +14,10 @@
                 class="block p-2 bg-white dark:bg-white/5 ring-1 ring-gray-950/10 dark:ring-white/20 rounded-md shadow"
                 @click="$dispatch('edit-task', { task: {{ $task->getKey() }} })"
             >
-                <span class="inline-flex items-center p-1 w-9 rounded-full bg-rose-500 dark:bg-rose-400">
+                @foreach($task->labels as $label)
+                <span class="inline-flex items-center p-1 w-9 rounded-full {{ $label->color }}">
                 </span>
+                @endforeach
                 <div class="flex items-start justify-between gap-2">
                     <div class="flex-1 text-xs font-medium leading-snug">{{ $task->description }}</div>
                 </div>

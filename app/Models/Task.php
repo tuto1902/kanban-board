@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Task extends Model
 {
@@ -30,7 +31,7 @@ class Task extends Model
 
     public function scopeFilter(Builder $query, string $search)
     {
-        //
+        $query->where('description', 'like', "%$search%");
     }
 
     public function group(): BelongsTo
@@ -41,5 +42,10 @@ class Task extends Model
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
+    }
+
+    public function labels(): BelongsToMany
+    {
+        return $this->belongsToMany(Label::class);
     }
 }

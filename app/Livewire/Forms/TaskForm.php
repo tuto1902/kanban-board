@@ -14,6 +14,10 @@ class TaskForm extends Form
 
     #[Validate('required', onUpdate: false)]
     public $description;
+
+    public $taskLabels = [];
+
+    public $label_id;
     public $projectId;
 
     public function setTask(Task $task)
@@ -21,6 +25,7 @@ class TaskForm extends Form
         $this->task = $task;
         $this->description = $task->description;
         $this->projectId = $task->project?->getKey();
+        $this->taskLabels = $task->labels->pluck('id');
     }
 
     public function store(Group $group)
@@ -29,7 +34,7 @@ class TaskForm extends Form
 
         $group->tasks()->create([
             'description' => $this->pull('description'),
-        ]);
+        ])->labels()->attach($this->label_id);
     }
 
     public function update()
@@ -45,6 +50,7 @@ class TaskForm extends Form
         }
 
         $this->task->save();
+        $this->task->labels()->sync($this->taskLabels);
     }
 
     public function destroy()

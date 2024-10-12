@@ -32,7 +32,7 @@ class EditProject extends Component
     }
 
     #[On('edit-project')]
-    public function setTask(Project $project)
+    public function setProject(Project $project)
     {
         $this->form->setProject($project);
         $this->showDialog = true;

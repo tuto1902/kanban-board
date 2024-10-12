@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Group;
+use App\Models\Label;
 use App\Models\Project;
 use App\Models\Task;
 use App\Models\User;
@@ -28,6 +29,13 @@ class DatabaseSeeder extends Seeder
 
         $group1 = Group::factory()->state(['name' => 'To-Do'])->for($user)->create();
         $group2 = Group::factory()->state(['name' => 'In Progress'])->for($user)->create();
+
+        Label::factory(3)
+            ->state(new Sequence(
+                ['name' => 'Bug', 'color' => '#b91c1c'],
+                ['name' => 'Feature', 'color' => '#1e40af'],
+                ['name' => 'Priority', 'color' => '#fef08a']
+            ))->create();
         Task::factory(4)
             ->state(new Sequence(
                 ['sort' => 0, 'description' => 'Task 1'],

@@ -12,7 +12,7 @@
         <div
             x-dialog:panel
             x-transition.in x-transition.out.opacity
-            class="relative max-w-xl w-full ring-1 ring-gray-950/5 dark:ring-white/10 bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-y-auto"
+            class="relative max-w-sm w-full ring-1 ring-gray-950/5 dark:ring-white/10 bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-y-auto"
         >
             <!-- Close Button -->
             <div class="absolute top-0 right-0">

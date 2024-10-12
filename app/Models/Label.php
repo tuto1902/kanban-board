@@ -10,6 +10,11 @@ class Label extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'color'
+    ];
+
     public function tasks(): BelongsToMany
     {
         return $this->belongsToMany(Task::class);

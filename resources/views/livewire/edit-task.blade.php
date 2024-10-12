@@ -19,14 +19,17 @@
                     </x-select>
                 </div>
                 <div class="space-y-1">
-                    @foreach($labels as $label)
-                    <label for="comments" class="font-medium text-white flex items-center">
+                    @foreach($this->labels as $label)
+                    <label for="comments" class="font-medium flex items-center">
                         <input wire:model="form.taskLabels" value="{{ $label->id }}" type="checkbox" class="h-4 w-4 mr-2 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
-                        <span class="py-1 px-2 rounded-md mr-2 text-sm bg-red-600 flex-1 max-w-32">
+                        <span class="py-1 px-2 rounded-md mr-2 text-sm {{ $label->color }} flex-1 max-w-32">
                             {{ $label->name }}
                         </span>
                     </label>
                     @endforeach
+                    <button @click="$dispatch('add-label')" class="px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                        Add Label
+                    </button>
                 </div>
                 <div class="flex items-center justify-between">
                     <div class="pt-2">

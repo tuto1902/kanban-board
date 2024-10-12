@@ -6,6 +6,7 @@ use App\Livewire\Forms\TaskForm;
 use App\Models\Label;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -18,12 +19,15 @@ class EditTask extends Component
 
     public $projects;
 
-    public $labels;
-
     public function mount()
     {
         $this->projects = Auth::user()->projects;
-        $this->labels = Label::all();
+    }
+
+    #[Computed]
+    public function labels()
+    {
+        return Label::all();
     }
 
     public function render()
@@ -45,7 +49,7 @@ class EditTask extends Component
         $this->dispatch('task-deleted');
     }
 
-    #[On('edit-task')]
+    #[On([ 'edit-task', 'label-created', 'label-canceled' ])]
     public function setTask(Task $task)
     {
         $this->form->setTask($task);

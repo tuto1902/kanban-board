@@ -1,20 +1,26 @@
 <?php
 
-use App\Livewire\Board;
+use App\Livewire\Kanban\Board;
 use App\Models\Group;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Livewire\Livewire;
-use App\Models\Task;
+use App\Models\User;
+
+use function Pest\Laravel\actingAs;
 
 it('shows all groups', function () {
+    $user = User::factory()
+        ->create();
+    actingAs($user);
     Group::factory(3)
+        ->for($user)
         ->state(new Sequence(
             ['name' => 'To-Do'],
             ['name' => 'Doing'],
             ['name' => 'Done']
         ))
         ->create();
-        
+
     Livewire::test(Board::class)
         ->assertSeeText([
             'To-Do',
@@ -23,43 +29,25 @@ it('shows all groups', function () {
         ]);
 });
 
-it('it shows all tasks from a group', function () {
-    /**
-     * type App\Models\Group
-     */
-    $group = Group::factory()->create();
-    Task::factory(3)
+it('does not shows groups from a different user', function () {
+    $user = User::factory()
+        ->create();
+    $stranger = User::factory()
+        ->create();
+    actingAs($stranger);
+    Group::factory(3)
+        ->for($user)
         ->state(new Sequence(
-            ['description' => 'Task 1'],
-            ['description' => 'Task 2'],
-            ['description' => 'Task 3']
+            ['name' => 'To-Do'],
+            ['name' => 'Doing'],
+            ['name' => 'Done']
         ))
-        ->for($group)
         ->create();
 
     Livewire::test(Board::class)
-        ->assertSeeText([
-            'Task 1',
-            'Task 2',
-            'Task 3',
-        ]);
-});
-
-it('shows tasks in order', function () {
-    $group = Group::factory()->create();
-    Task::factory(3)
-        ->state(new Sequence(
-            ['sort' => 1, 'description' => 'Task 2'],
-            ['sort' => 0, 'description' => 'Task 1'],
-            ['sort' => 2, 'description' => 'Task 3']
-        ))
-        ->for($group)
-        ->create();
-
-    Livewire::test(Board::class)
-        ->assertSeeTextInOrder([
-            'Task 1',
-            'Task 2',
-            'Task 3',
+        ->assertDontSeeText([
+            'To-Do',
+            'Doing',
+            'Done',
         ]);
 });

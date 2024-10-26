@@ -17,8 +17,12 @@
 
 <body class="dark antialiased bg-gray-50 dark:bg-gray-950 text-gray-950 dark:text-white font-normal min-h-screen">
     <div class="h-screen flex">
+        {{ $sidebar }}
+
         {{ $slot }}
     </div>
+    @livewireScriptConfig
+    @vite(['resources/js/app.js'])
 </body>
 
 </html>

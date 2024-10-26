@@ -11,5 +11,6 @@
         <livewire:add-project />
         <livewire:edit-project />
         <livewire:add-label />
+        <livewire:edit-label />
     </div>
 </x-kanban-layout>

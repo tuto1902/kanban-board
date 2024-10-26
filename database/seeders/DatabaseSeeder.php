@@ -32,9 +32,9 @@ class DatabaseSeeder extends Seeder
 
         Label::factory(3)
             ->state(new Sequence(
-                ['name' => 'Bug', 'color' => '#b91c1c'],
-                ['name' => 'Feature', 'color' => '#1e40af'],
-                ['name' => 'Priority', 'color' => '#fef08a']
+                ['name' => 'Bug', 'color' => 'bg-red-600 text-white'],
+                ['name' => 'Feature', 'color' => 'bg-green-600 text-white'],
+                ['name' => 'Priority', 'color' => 'bg-indigo-600 text-white']
             ))->create();
         Task::factory(4)
             ->state(new Sequence(

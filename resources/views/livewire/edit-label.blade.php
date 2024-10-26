@@ -1,8 +1,8 @@
 <x-dialog wire:model="showDialog" @keyup.escape="open = false">
     <x-dialog.panel>
         <div class="mt-4" x-effect="$wire.resetDialogForm(open)">
-            <form wire:submit="store">
-                <h2 class="text-xl font-semibold mb-4">Create Label</h2>
+            <form wire:submit="update">
+                <h2 class="text-xl font-semibold mb-4">Edit Label</h2>
                 <div class="flex flex-col gap-2 mb-2">
                     <x-input-label value="Name" />
                     <x-text-input wire:model="form.name" placeholder="Label name" />
@@ -84,12 +84,17 @@
                         <!-- Add more colors as needed -->
                     </div>
                 </div>
-                <div class="flex items-center justify-end">
+                <div class="flex items-center justify-between">
+                    <div class="pt-2">
+                        <x-danger-button type="button" wire:click.prevent="destroy" wire:confirm="Are you sure you want to delete this label?">
+                            Delete
+                        </x-danger-button>
+                    </div>
                     <div class="flex items-center justify-start gap-2 pt-2">
                         <x-primary-button>
                             Save
                         </x-primary-button>
-                        <x-secondary-button @click="open = false" type="button">
+                        <x-secondary-button wire:click="cancel" type="button">
                             Cancel
                         </x-secondary-button>
                     </div>

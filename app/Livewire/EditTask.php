@@ -49,7 +49,7 @@ class EditTask extends Component
         $this->dispatch('task-deleted');
     }
 
-    #[On([ 'edit-task', 'label-created', 'label-canceled' ])]
+    #[On([ 'edit-task', 'label-created', 'label-updated', 'label-deleted', 'label-canceled' ])]
     public function setTask(Task $task)
     {
         $this->form->setTask($task);

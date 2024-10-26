@@ -20,14 +20,18 @@
                 </div>
                 <div class="space-y-1">
                     @foreach($this->labels as $label)
-                    <label for="comments" class="font-medium flex items-center">
-                        <input wire:model="form.taskLabels" value="{{ $label->id }}" type="checkbox" class="h-4 w-4 mr-2 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
-                        <span class="py-1 px-2 rounded-md mr-2 text-sm {{ $label->color }} flex-1 max-w-32">
+                    <label class="font-medium flex items-center group">
+                        <input x-ref="checkbox" wire:model="form.taskLabels" value="{{ $label->id }}" type="checkbox" class="h-4 w-4 mr-2 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                        <div class="flex-1 max-w-32 py-1 px-2 rounded-md mr-1 text-sm {{ $label->color }}">
                             {{ $label->name }}
-                        </span>
+                        </div>
+                        <a href="#" @click="$dispatch('edit-label', { label: {{ $label->id }} })" class="hidden group-hover:inline-block group-hover:cursor-pointer">
+                            <x-heroicon-o-pencil-square class="size-5" />
+                        </a>
                     </label>
                     @endforeach
-                    <button @click="$dispatch('add-label')" class="px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                    <button @click="$dispatch('add-label')" class="flex items-center justify-start gap-1 py-1 px-2 ml-6 w-32 text-sm rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                        <x-heroicon-o-plus class="size-5" />
                         Add Label
                     </button>
                 </div>
